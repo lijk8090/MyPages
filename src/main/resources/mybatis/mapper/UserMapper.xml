@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.infosec.mypages.mapper.UserMapper">
+
+	<select id="selectUserCountByUsername" resultType="int">
+		select count(uuid) from t_user where 1 = 1
+		<if test="username != null and username !=''">
+			and username like '%${username}%'
+		</if>
+	</select>
+
+	<select id="selectUserEntityByUsername" resultType="cn.com.infosec.mypages.entity.UserEntity">
+		select * from t_user where 1 = 1
+		<if test="userEntity.username != null and userEntity.username !=''">
+			and username like concat('%', #{userEntity.username}, '%')
+		</if>
+		order by uuid desc
+		<if test="pageEntity.pageNO > 0 and pageEntity.pageSize > 0">
+			limit ${(pageEntity.pageNO - 1) * pageEntity.pageSize}, ${pageEntity.pageSize}
+		</if>
+	</select>
+
+</mapper>
