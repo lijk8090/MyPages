@@ -1,2 +1,0 @@
-# MyPages
-SpringBoot + MyBatis + Pages
